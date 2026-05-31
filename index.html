@@ -2,13 +2,11 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-DSX0E3KFSH"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-DSX0E3KFSH');
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,308 +16,246 @@
             --primary: #8a1538;
             --secondary: #eeeee4;
             --dark: #1a1a1a;
-            --milli: #e30a17; /* Ay-Yıldız Kırmızısı */
+            --milli: #e30a17;
             --pos1: #ffd700;
             --pos2: #c0c0c0;
             --pos3: #cd7f32;
             --match-bg: #f8fafc;
         }
+        * { box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f1f5f9;
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             color: var(--dark);
             overflow-x: hidden;
         }
 
-        /* GİRİŞ EKRANI */
+        /* GİRİŞ */
         #welcome-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
             background: linear-gradient(135deg, var(--milli), #7a0006);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            z-index: 9999;
-            transition: all 0.5s ease;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            color: white; z-index: 9999;
+            transition: opacity 0.5s ease;
+            text-align: center; padding: 20px;
         }
-        #welcome-screen h1 {
-            font-size: 48px;
-            margin-bottom: 10px;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            letter-spacing: 1px;
-        }
-        #welcome-screen p {
-            font-size: 20px;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
+        #welcome-screen h1 { font-size: 48px; margin-bottom: 10px; text-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        #welcome-screen p { font-size: 20px; margin-bottom: 30px; opacity: 0.9; }
         .milli-btn {
-            background-color: white;
-            color: var(--milli);
-            font-size: 20px;
-            font-weight: bold;
-            padding: 16px 40px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background-color: white; color: var(--milli);
+            font-size: 20px; font-weight: bold;
+            padding: 16px 40px; border: none; border-radius: 50px;
+            cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             transition: all 0.3s ease;
         }
-        .milli-btn:hover {
-            transform: scale(1.05) translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            background-color: #f8f9fa;
-        }
+        .milli-btn:hover { transform: scale(1.05) translateY(-3px); }
 
-        /* GİZLİ YÖNETİCİ PANELİ (ADMIN PANEL) */
+        /* ADMIN */
         #admin-panel {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #1e293b;
-            color: #f8fafc;
-            padding: 30px;
-            border-radius: 16px;
+            display: none; position: fixed;
+            top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: #1e293b; color: #f8fafc;
+            padding: 30px; border-radius: 16px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            z-index: 10000;
-            width: 320px;
-            text-align: center;
+            z-index: 10000; width: 320px; text-align: center;
             border: 2px solid #38bdf8;
         }
-        #admin-panel h3 {
-            margin-top: 0;
-            color: #38bdf8;
-            font-size: 22px;
-            border-bottom: 1px solid #334155;
-            padding-bottom: 10px;
-        }
-        .stat-box {
-            background: #0f172a;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-        }
-        .stat-number {
-            font-size: 36px;
-            font-weight: bold;
-            color: #4ade80;
-        }
-        .close-admin-btn {
-            background: #ef4444;
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-        }
+        #admin-panel h3 { margin-top: 0; color: #38bdf8; font-size: 22px; border-bottom: 1px solid #334155; padding-bottom: 10px; }
+        .stat-box { background: #0f172a; padding: 20px; border-radius: 10px; margin: 20px 0; }
+        .stat-number { font-size: 36px; font-weight: bold; color: #4ade80; }
+        .close-admin-btn { background: #ef4444; color: white; border: none; padding: 8px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
 
-        /* TURNUVA BİTİŞ EKRANI (PODYUM) */
+        /* PODYUM */
         #podium-screen {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            display: none; position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(15, 23, 42, 0.95);
-            z-index: 9998;
-            color: white;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            padding: 20px;
-            box-sizing: border-box;
+            z-index: 9998; color: white;
+            justify-content: center; align-items: center;
+            flex-direction: column; padding: 20px;
         }
-        .podium-card {
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            padding: 40px;
-            border-radius: 24px;
-            border: 2px solid #eab308;
-            text-align: center;
-            max-width: 500px;
-            width: 100%;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-        }
-        .podium-title {
-            font-size: 32px;
-            color: #fde047;
-            margin-bottom: 30px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .podium-row {
-            display: flex;
-            align-items: center;
-            background: rgba(255,255,255,0.05);
-            margin: 15px 0;
-            padding: 15px 20px;
-            border-radius: 12px;
-            border-left: 6px solid transparent;
-            font-size: 20px;
-        }
-        .p-1 { border-color: var(--pos1); background: rgba(254, 240, 138, 0.1); }
-        .p-2 { border-color: var(--pos2); background: rgba(226, 232, 240, 0.08); }
-        .p-3 { border-color: var(--pos3); background: rgba(253, 237, 213, 0.08); }
-        
-        .medal {
-            font-size: 28px;
-            margin-right: 15px;
-            width: 40px;
-            text-align: center;
-        }
-        .podium-flag {
-            width: 35px;
-            height: 23px;
-            object-fit: cover;
-            border-radius: 4px;
-            margin-right: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-        }
-        .podium-team-name {
-            font-weight: bold;
-            flex-grow: 1;
-            text-align: left;
-        }
-        .restart-btn {
-            background: linear-gradient(135deg, #22c55e, #15803d);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 50px;
-            margin-top: 25px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+        .podium-card { background: linear-gradient(135deg, #1e293b, #0f172a); padding: 40px; border-radius: 24px; border: 2px solid #eab308; text-align: center; max-width: 500px; width: 100%; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+        .podium-title { font-size: 32px; color: #fde047; margin-bottom: 30px; font-weight: bold; text-transform: uppercase; }
+        .podium-row { display: flex; align-items: center; background: rgba(255,255,255,0.05); margin: 15px 0; padding: 15px 20px; border-radius: 12px; border-left: 6px solid transparent; font-size: 20px; }
+        .p-1 { border-color: var(--pos1); background: rgba(254,240,138,0.1); }
+        .p-2 { border-color: var(--pos2); background: rgba(226,232,240,0.08); }
+        .p-3 { border-color: var(--pos3); background: rgba(253,237,213,0.08); }
+        .medal { font-size: 28px; margin-right: 15px; width: 40px; text-align: center; }
+        .podium-flag { width: 35px; height: 23px; object-fit: cover; border-radius: 4px; margin-right: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
+        .podium-team-name { font-weight: bold; flex-grow: 1; text-align: left; }
+        .restart-btn { background: linear-gradient(135deg, #22c55e, #15803d); color: white; border: none; padding: 12px 30px; font-size: 18px; font-weight: bold; border-radius: 50px; margin-top: 25px; cursor: pointer; transition: 0.3s; }
         .restart-btn:hover { transform: scale(1.05); }
 
-        /* ANA SİMÜLATÖR İÇERİĞİ */
-        #main-content {
-            display: none;
-            padding: 20px;
-        }
-        header {
-            text-align: center;
-            background: linear-gradient(135deg, var(--primary), #4a071c);
-            color: white;
-            padding: 20px;
-            border-radius: 16px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-        }
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 15px;
-            margin-bottom: 35px;
-        }
-        .group-card {
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 12px;
-            background: #ffffff;
-        }
+        /* ANA İÇERİK */
+        #main-content { display: none; padding: 20px; }
+        header { text-align: center; background: linear-gradient(135deg, var(--primary), #4a071c); color: white; padding: 20px; border-radius: 16px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 15px; margin-bottom: 35px; }
+
+        /* GRUP KART */
+        .group-card { border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
         .group-title {
-            background: var(--primary);
-            color: white;
-            margin: -12px -12px 12px -12px;
-            padding: 10px;
+            background: var(--primary); color: white;
+            padding: 10px 14px; font-weight: bold;
+            display: flex; justify-content: space-between; align-items: center;
+            cursor: pointer; user-select: none; transition: background 0.2s;
+        }
+        .group-title:hover { background: #6b1028; }
+        .group-title .fixture-hint { font-size: 11px; opacity: 0.85; font-weight: normal; }
+
+        /* PUAN TABLOSU */
+        .standings-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        .standings-table th { background: #f1f5f9; color: #64748b; padding: 5px 8px; text-align: center; font-weight: 600; border-bottom: 1px solid #e2e8f0; }
+        .standings-table th:first-child { text-align: left; }
+        .standings-table td { padding: 7px 8px; text-align: center; border-bottom: 1px solid #f1f5f9; }
+        .standings-table td:first-child { text-align: left; font-size: 11px; }
+        .standings-table tr:last-child td { border-bottom: none; }
+        .standings-table tr.rank-1 td { background: #fef9c3; font-weight: bold; }
+        .standings-table tr.rank-2 td { background: #f1f5f9; font-weight: bold; }
+        .standings-table tr.rank-3 td { background: #fff7ed; }
+        .standings-table tr.rank-4 td { background: #fef2f2; color: #94a3b8; }
+        .rank-badge { display: inline-block; width: 16px; height: 16px; border-radius: 50%; font-size: 9px; font-weight: bold; line-height: 16px; text-align: center; margin-right: 4px; }
+        .rb-1 { background: #fbbf24; color: #78350f; }
+        .rb-2 { background: #94a3b8; color: white; }
+        .rb-3 { background: #fb923c; color: white; }
+        .rb-4 { background: #e2e8f0; color: #64748b; }
+        .pts-cell { font-weight: bold; color: var(--primary); }
+
+        /* MODAL (Hem grup hem eleme için) */
+        #fixture-modal {
+            display: none; position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15,23,42,0.75); backdrop-filter: blur(4px);
+            z-index: 8000; justify-content: center; align-items: center;
+            padding: 20px;
+        }
+        #fixture-modal.open { display: flex; }
+        .modal-card {
+            background: white; border-radius: 20px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+            width: 100%; max-width: 540px;
+            max-height: 90vh; overflow-y: auto;
+            animation: slideUp 0.3s ease;
+        }
+        @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary), #4a071c);
+            color: white; padding: 18px 22px;
+            border-radius: 20px 20px 0 0;
+            display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 1;
+        }
+        .modal-header h3 { margin: 0; font-size: 18px; }
+        .modal-close { background: rgba(255,255,255,0.2); border: none; color: white; width: 32px; height: 32px; border-radius: 50%; font-size: 18px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
+        .modal-close:hover { background: rgba(255,255,255,0.35); }
+        .modal-body { padding: 18px 22px; }
+        .modal-actions { padding: 0 22px 18px; display: flex; gap: 10px; }
+
+        /* UYARI MESAJI (Grup tamamlanmamış) */
+        .modal-warning {
+            background: #fef3c7; border: 1px solid #f59e0b;
+            border-radius: 10px; padding: 12px 16px;
+            font-size: 13px; color: #92400e;
+            margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+        }
+
+        /* MAÇLAR */
+        .fixture-match {
+            background: #f8fafc; border: 1px solid #e2e8f0;
+            border-radius: 12px; padding: 12px 14px;
+            margin-bottom: 10px; transition: border-color 0.2s;
+        }
+        .fixture-match.match-played { border-color: #86efac; background: #f0fdf4; }
+        .fixture-match-label { font-size: 11px; color: #94a3b8; font-weight: 600; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .fixture-teams-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+        .fixture-team-name { font-weight: 600; font-size: 13px; flex: 1; line-height: 1.3; }
+        .fixture-team-name.home { text-align: right; }
+        .fixture-team-name.away { text-align: left; }
+        .score-inputs { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+        .score-input {
+            width: 42px; height: 42px;
+            border: 2px solid #cbd5e1; border-radius: 8px;
+            text-align: center; font-size: 18px; font-weight: bold;
+            color: var(--primary); background: white;
+            outline: none; transition: border-color 0.2s;
+            -moz-appearance: textfield;
+        }
+        .score-input::-webkit-outer-spin-button,
+        .score-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        .score-input:focus { border-color: var(--primary); }
+        .score-sep { font-size: 18px; font-weight: bold; color: #94a3b8; }
+
+        /* KO MAÇI - tek skor girişi */
+        .ko-match-box {
+            background: #f8fafc; border: 2px solid #e2e8f0;
+            border-radius: 14px; padding: 18px 20px;
             text-align: center;
-            font-weight: bold;
-            border-top-left-radius: 11px;
-            border-top-right-radius: 11px;
         }
-        .team-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 12px;
-            margin: 5px 0;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            cursor: pointer;
-            user-select: none;
+        .ko-match-box.match-played { border-color: #86efac; background: #f0fdf4; }
+        .ko-teams-vs { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 16px; }
+        .ko-team { font-weight: bold; font-size: 15px; flex: 1; }
+        .ko-team.left { text-align: right; }
+        .ko-team.right { text-align: left; }
+        .ko-vs { font-size: 13px; font-weight: bold; color: #94a3b8; background: #e2e8f0; padding: 4px 10px; border-radius: 20px; }
+        .ko-score-row { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 14px; }
+        .ko-score-input {
+            width: 52px; height: 52px;
+            border: 2px solid #cbd5e1; border-radius: 10px;
+            text-align: center; font-size: 22px; font-weight: bold;
+            color: var(--primary); background: white;
+            outline: none; transition: border-color 0.2s;
+            -moz-appearance: textfield;
         }
-        .team-row.rank-1 { background-color: #fef08a; border-color: var(--pos1); font-weight: bold; }
-        .team-row.rank-2 { background-color: #e2e8f0; border-color: var(--pos2); font-weight: bold; }
-        .team-row.rank-3 { background-color: #ffedd5; border-color: var(--pos3); font-weight: bold; }
-        
-        .badge { font-size: 11px; font-weight: bold; color: #64748b; }
-        
-        .bracket-section {
-            margin-top: 40px;
-            border-top: 2px dashed #cbd5e1;
-            padding-top: 20px;
-        }
-        .bracket-title {
-            color: var(--primary);
-            text-align: center;
-            margin-bottom: 25px;
-        }
-        .stage-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        .match-box {
-            background: var(--match-bg);
-            border: 2px solid #cbd5e1;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
-        .match-label {
-            background: #cbd5e1;
-            font-size: 11px;
-            font-weight: bold;
-            padding: 4px 10px;
-            color: #334155;
-        }
+        .ko-score-input::-webkit-outer-spin-button,
+        .ko-score-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+        .ko-score-input:focus { border-color: var(--primary); }
+        .ko-score-sep { font-size: 24px; font-weight: bold; color: #cbd5e1; }
+        .ko-note { font-size: 11px; color: #94a3b8; margin-top: 4px; }
+        .ko-winner-label { font-size: 12px; color: #166534; font-weight: bold; background: #bbf7d0; padding: 4px 12px; border-radius: 20px; display: inline-block; }
+
+        /* BUTONLAR */
+        .btn-apply { flex: 1; background: linear-gradient(135deg, var(--primary), #6b1028); color: white; border: none; padding: 12px; border-radius: 10px; font-size: 14px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .btn-apply:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn-apply:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .btn-reset-m { background: #f1f5f9; color: #64748b; border: 1px solid #e2e8f0; padding: 12px 14px; border-radius: 10px; font-size: 13px; cursor: pointer; transition: 0.2s; white-space: nowrap; }
+        .btn-reset-m:hover { background: #e2e8f0; }
+
+        /* ELİMİNASYON AĞACI */
+        .bracket-section { margin-top: 40px; border-top: 2px dashed #cbd5e1; padding-top: 20px; }
+        .bracket-title { color: var(--primary); text-align: center; margin-bottom: 25px; }
+        .stage-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; margin-bottom: 30px; }
+
+        /* KO MAÇ KUTUSU (Ağaçta) */
+        .match-box { background: var(--match-bg); border: 2px solid #cbd5e1; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.04); transition: border-color 0.2s; }
+        .match-box:hover { border-color: #94a3b8; }
+        .match-label { background: #e2e8f0; font-size: 11px; font-weight: bold; padding: 5px 12px; color: #334155; display: flex; justify-content: space-between; align-items: center; }
+        .match-score-badge { font-size: 12px; font-weight: bold; color: var(--primary); background: white; padding: 1px 8px; border-radius: 10px; }
         .match-team {
-            padding: 10px 15px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            background: white;
-            transition: all 0.2s;
-            min-height: 20px;
+            padding: 10px 14px; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
+            background: white; transition: all 0.2s; min-height: 22px;
+            font-size: 13px;
         }
         .match-team:first-of-type { border-bottom: 1px solid #e2e8f0; }
-        .match-team:hover { background: #f1f5f9; }
-        .match-team.winner {
-            background: #bbf7d0 !important;
-            font-weight: bold;
-            color: #166534;
+        .match-team.winner { background: #bbf7d0 !important; font-weight: bold; color: #166534; }
+        .match-team.locked { cursor: default; }
+        .match-team .team-score { font-weight: bold; color: var(--primary); font-size: 15px; }
+        .match-edit-btn {
+            width: 100%; border: none; background: #f8fafc;
+            color: #64748b; padding: 6px; font-size: 11px;
+            cursor: pointer; transition: 0.2s; border-top: 1px solid #e2e8f0;
         }
-        .champion-banner {
-            background: linear-gradient(45deg, #fef08a, #fde047);
-            border: 3px solid #eab308;
-            padding: 25px;
-            border-radius: 12px;
-            text-align: center;
-            font-size: 22px;
-            font-weight: bold;
-            color: #854d0e;
-            margin-top: 30px;
-            cursor: pointer;
-        }
+        .match-edit-btn:hover { background: #f1f5f9; color: var(--primary); }
+        .match-box.completed { border-color: #86efac; }
+        .match-box.locked-box { opacity: 0.55; }
+
+        .champion-banner { background: linear-gradient(45deg, #fef08a, #fde047); border: 3px solid #eab308; padding: 25px; border-radius: 12px; text-align: center; font-size: 22px; font-weight: bold; color: #854d0e; margin-top: 30px; cursor: pointer; }
+
+        /* Tamamlanma göstergesi */
+        .stage-progress { text-align: center; font-size: 13px; color: #64748b; margin-bottom: 10px; }
+        .stage-progress span { background: var(--primary); color: white; padding: 2px 10px; border-radius: 10px; font-weight: bold; margin-left: 6px; }
     </style>
 </head>
 <body>
@@ -336,28 +272,9 @@
 <div id="podium-screen">
     <div class="podium-card">
         <div class="podium-title">🏆 Senin Dünya Kupan 🏆</div>
-        
-        <div class="podium-row p-1">
-            <span class="medal">🥇</span>
-            <img id="flag-1" class="podium-flag" src="" alt="">
-            <span class="podium-team-name" id="podium-1">Takım</span>
-            <span>1.</span>
-        </div>
-
-        <div class="podium-row p-2">
-            <span class="medal">🥈</span>
-            <img id="flag-2" class="podium-flag" src="" alt="">
-            <span class="podium-team-name" id="podium-2">Takım</span>
-            <span>2.</span>
-        </div>
-
-        <div class="podium-row p-3">
-            <span class="medal">🥉</span>
-            <img id="flag-3" class="podium-flag" src="" alt="">
-            <span class="podium-team-name" id="podium-3">Takım</span>
-            <span>3.</span>
-        </div>
-
+        <div class="podium-row p-1"><span class="medal">🥇</span><img id="flag-1" class="podium-flag" src="" alt=""><span class="podium-team-name" id="podium-1">Takım</span><span>1.</span></div>
+        <div class="podium-row p-2"><span class="medal">🥈</span><img id="flag-2" class="podium-flag" src="" alt=""><span class="podium-team-name" id="podium-2">Takım</span><span>2.</span></div>
+        <div class="podium-row p-3"><span class="medal">🥉</span><img id="flag-3" class="podium-flag" src="" alt=""><span class="podium-team-name" id="podium-3">Takım</span><span>3.</span></div>
         <button class="restart-btn" onclick="resetTournament()">Yeni Simülasyon Başlat 🔄</button>
     </div>
 </div>
@@ -368,309 +285,632 @@
     <button class="milli-btn" onclick="startApp()">SİMÜLASYONU BAŞLAT ⚽</button>
 </div>
 
+<!-- FİKSTÜR MODALI (Hem grup hem KO için ortak) -->
+<div id="fixture-modal" onclick="handleModalBackdrop(event)">
+    <div class="modal-card" id="modal-card">
+        <div class="modal-header">
+            <h3 id="modal-title">Fikstür</h3>
+            <button class="modal-close" onclick="closeModal()">✕</button>
+        </div>
+        <div class="modal-body" id="modal-body"></div>
+        <div class="modal-actions" id="modal-actions"></div>
+    </div>
+</div>
+
 <div id="main-content">
     <header>
         <h1>🏆 2026 DÜNYA KUPASI SİMÜLATÖRÜ ⚽</h1>
-        <p>Grupları tıklayarak sıralayın, turnuva eşleşmeleri otomatik olarak hazırlansın!</p>
+        <p>Grup adına tıkla → Maç sonuçlarını gir → Sıralama otomatik belirlensin!</p>
     </header>
 
-    <h2>📋 1. Aşama: Grupları Sırala</h2>
+    <h2>📋 1. Aşama: Grup Sıralamaları</h2>
     <div class="grid-container" id="groups-container"></div>
 
     <div class="bracket-section">
-        <h2 class="bracket-title">🗺️ 2. Aşama: Eleme Ağacı (Tıklayarak Tur Atlat!)</h2>
-        
+        <h2 class="bracket-title">🗺️ 2. Aşama: Eleme Ağacı</h2>
+
         <h3>🔥 Son 32 Turu</h3>
+        <p class="stage-progress" id="prog-s32"></p>
         <div class="stage-container" id="s32"></div>
 
         <h3>⚡ Son 16 Turu</h3>
+        <p class="stage-progress" id="prog-s16"></p>
         <div class="stage-container" id="s16"></div>
 
         <h3>🎯 Çeyrek Finaller</h3>
+        <p class="stage-progress" id="prog-s8"></p>
         <div class="stage-container" id="s8"></div>
 
         <h3>🔱 Yarı Finaller</h3>
+        <p class="stage-progress" id="prog-s4"></p>
         <div class="stage-container" id="s4"></div>
 
         <h3>🏆 Büyük Final</h3>
         <div class="stage-container" id="s2"></div>
 
-        <div class="champion-banner" id="champ-box" onclick="showPodium()">🥇 TURNUVA BİTTİ! PODYUMU GÖRMEK İÇİN TIKLA 🎉</div>
+        <div class="champion-banner" id="champ-box" onclick="showPodium()" style="display:none;">🥇 TURNUVA BİTTİ! PODYUMU GÖRMEK İÇİN TIKLA 🎉</div>
     </div>
 </div>
 
 <script>
-    // DÜNYA ÜLKELERİNİN BAYRAK KODLARI EŞLEŞMESİ
-    const flagCodes = {
-        "Meksika": "mx", "Güney Afrika": "za", "Güney Kore": "kr", "Çekya": "cz",
-        "Kanada": "ca", "Bosna-Hersek": "ba", "Katar": "qa", "İsviçre": "ch",
-        "Brezilya": "br", "Fas": "ma", "Haiti": "ht", "İskoçya": "gb-sct",
-        "ABD": "us", "Paraguay": "py", "Avustralya": "au", "TÜRKİYE 🇹🇷": "tr",
-        "Almanya": "de", "Curaçao": "cw", "Fildişi Sahili": "ci", "Ekvador": "ec",
-        "Hollanda": "nl", "Japonya": "jp", "İsveç": "se", "Tunus": "tn",
-        "Belçika": "be", "Mısır": "eg", "İran": "ir", "Yeni Zelanda": "nz",
-        "İspanya": "es", "Yeşil Burun Adaları": "cv", "Suudi Arabistan": "sa", "Uruguay": "uy",
-        "Fransa": "fr", "Senegal": "sn", "Irak": "iq", "Norveç": "no",
-        "Arjantin": "ar", "Cezayir": "dz", "Avusturya": "at", "Ürdün": "jo",
-        "Portekiz": "pt", "Kongo DC": "cd", "Özbekistan": "uz", "Kolombiya": "co",
-        "İngiltere": "gb-eng", "Hırvatistan": "hr", "Gana": "gh", "Panama": "pa"
-    };
+// ───────────────────────────────────────────
+// VERİ
+// ───────────────────────────────────────────
+const flagCodes = {
+    "Meksika":"mx","Güney Afrika":"za","Güney Kore":"kr","Çekya":"cz",
+    "Kanada":"ca","Bosna-Hersek":"ba","Katar":"qa","İsviçre":"ch",
+    "Brezilya":"br","Fas":"ma","Haiti":"ht","İskoçya":"gb-sct",
+    "ABD":"us","Paraguay":"py","Avustralya":"au","TÜRKİYE 🇹🇷":"tr",
+    "Almanya":"de","Curaçao":"cw","Fildişi Sahili":"ci","Ekvador":"ec",
+    "Hollanda":"nl","Japonya":"jp","İsveç":"se","Tunus":"tn",
+    "Belçika":"be","Mısır":"eg","İran":"ir","Yeni Zelanda":"nz",
+    "İspanya":"es","Yeşil Burun Adaları":"cv","Suudi Arabistan":"sa","Uruguay":"uy",
+    "Fransa":"fr","Senegal":"sn","Irak":"iq","Norveç":"no",
+    "Arjantin":"ar","Cezayir":"dz","Avusturya":"at","Ürdün":"jo",
+    "Portekiz":"pt","Kongo DC":"cd","Özbekistan":"uz","Kolombiya":"co",
+    "İngiltere":"gb-eng","Hırvatistan":"hr","Gana":"gh","Panama":"pa"
+};
 
-    function countUser() {
-        let currentLocal = localStorage.getItem('milli_sim_count');
-        if (!currentLocal) {
-            currentLocal = "1";
-        } else {
-            currentLocal = (parseInt(currentLocal) + 1).toString();
-        }
-        localStorage.setItem('milli_sim_count', currentLocal);
-        document.getElementById('visitor-count').innerText = currentLocal;
+const officialGroups = {
+    "A": ["Meksika","Güney Afrika","Güney Kore","Çekya"],
+    "B": ["Kanada","Bosna-Hersek","Katar","İsviçre"],
+    "C": ["Brezilya","Fas","Haiti","İskoçya"],
+    "D": ["ABD","Paraguay","Avustralya","TÜRKİYE 🇹🇷"],
+    "E": ["Almanya","Curaçao","Fildişi Sahili","Ekvador"],
+    "F": ["Hollanda","Japonya","İsveç","Tunus"],
+    "G": ["Belçika","Mısır","İran","Yeni Zelanda"],
+    "H": ["İspanya","Yeşil Burun Adaları","Suudi Arabistan","Uruguay"],
+    "I": ["Fransa","Senegal","Irak","Norveç"],
+    "J": ["Arjantin","Cezayir","Avusturya","Ürdün"],
+    "K": ["Portekiz","Kongo DC","Özbekistan","Kolombiya"],
+    "L": ["İngiltere","Hırvatistan","Gana","Panama"]
+};
+
+// Son 32 eşleşme şablonu
+const matchTemplate = [
+    { id:"m1",  label:"A Grubu 1. - B Grubu 2.", t1s:"A_1", t2s:"B_2" },
+    { id:"m2",  label:"C Grubu 1. - D Grubu 2.", t1s:"C_1", t2s:"D_2" },
+    { id:"m3",  label:"E Grubu 1. - F Grubu 2.", t1s:"E_1", t2s:"F_2" },
+    { id:"m4",  label:"G Grubu 1. - H Grubu 2.", t1s:"G_1", t2s:"H_2" },
+    { id:"m5",  label:"B Grubu 1. - A Grubu 2.", t1s:"B_1", t2s:"A_2" },
+    { id:"m6",  label:"D Grubu 1. - C Grubu 2.", t1s:"D_1", t2s:"C_2" },
+    { id:"m7",  label:"F Grubu 1. - E Grubu 2.", t1s:"F_1", t2s:"E_2" },
+    { id:"m8",  label:"H Grubu 1. - G Grubu 2.", t1s:"H_1", t2s:"G_2" },
+    { id:"m9",  label:"I Grubu 1. - J Grubu 2.", t1s:"I_1", t2s:"J_2" },
+    { id:"m10", label:"K Grubu 1. - L Grubu 2.", t1s:"K_1", t2s:"L_2" },
+    { id:"m11", label:"J Grubu 1. - I Grubu 2.", t1s:"J_1", t2s:"I_2" },
+    { id:"m12", label:"L Grubu 1. - K Grubu 2.", t1s:"L_1", t2s:"K_2" },
+    { id:"m13", label:"En İyi 3. #1 (A-C)",      t1s:"A_3", t2s:"C_3" },
+    { id:"m14", label:"En İyi 3. #2 (D-E)",       t1s:"D_3", t2s:"E_3" },
+    { id:"m15", label:"En İyi 3. #3 (F-H)",       t1s:"F_3", t2s:"H_3" },
+    { id:"m16", label:"En İyi 3. #4 (I-L)",       t1s:"I_3", t2s:"L_3" }
+];
+
+// KO aşama tanımları
+const KO_STAGES = [
+    { key:"s32", count:16, label:"Son 32",       next:"s16" },
+    { key:"s16", count:8,  label:"Son 16",       next:"s8"  },
+    { key:"s8",  count:4,  label:"Çeyrek Final", next:"s4"  },
+    { key:"s4",  count:2,  label:"Yarı Final",   next:"s2"  },
+    { key:"s2",  count:1,  label:"Final",        next:"champ"}
+];
+
+// ───────────────────────────────────────────
+// STATE
+// ───────────────────────────────────────────
+let groupData = {};      // Grup verileri
+let koMatches = {};      // { "s32_0": {t1,t2,t1score,t2score,winner}, ... }
+let finalWinner = "";
+let finalLoser  = "";
+let thirdWinner = "TÜRKİYE 🇹🇷";
+
+// Modal state
+let modalMode = null;    // "group" | "ko"
+let modalGroupLetter = null;
+let modalKoKey = null;   // "s32_0" vb.
+
+// ───────────────────────────────────────────
+// GRUP MANTIGI
+// ───────────────────────────────────────────
+function getGroupMatches(teams) {
+    const ms = [];
+    for (let i=0; i<teams.length; i++)
+        for (let j=i+1; j<teams.length; j++)
+            ms.push({ home:teams[i], away:teams[j], homeScore:null, awayScore:null });
+    return ms;
+}
+
+function initGroupData() {
+    for (const [letter, teams] of Object.entries(officialGroups)) {
+        groupData[letter] = {
+            teams,
+            matches: getGroupMatches(teams),
+            standings: teams.map(t=>({ team:t, played:0, won:0, drawn:0, lost:0, gf:0, ga:0, gd:0, pts:0 }))
+        };
     }
+}
 
-    const activeKeys = {};
-    window.addEventListener('keydown', (e) => {
-        let keyName = e.key.toLowerCase();
-        if (e.getModifierState('CapsLock')) { activeKeys['capslock'] = true; }
-        if (keyName === 'a' || keyName === 'z') { activeKeys[keyName] = true; }
-        if (activeKeys['capslock'] && activeKeys['a'] && activeKeys['z']) { toggleAdminPanel(true); }
+function calcStandings(letter) {
+    const gd = groupData[letter];
+    gd.standings.forEach(s=>{ s.played=0;s.won=0;s.drawn=0;s.lost=0;s.gf=0;s.ga=0;s.gd=0;s.pts=0; });
+    gd.matches.forEach(m=>{
+        if (m.homeScore===null||m.awayScore===null) return;
+        const hs=+m.homeScore, as_=+m.awayScore;
+        const home=gd.standings.find(s=>s.team===m.home);
+        const away=gd.standings.find(s=>s.team===m.away);
+        home.played++; away.played++;
+        home.gf+=hs; home.ga+=as_; home.gd=home.gf-home.ga;
+        away.gf+=as_; away.ga+=hs; away.gd=away.gf-away.ga;
+        if(hs>as_){home.won++;home.pts+=3;away.lost++;}
+        else if(hs<as_){away.won++;away.pts+=3;home.lost++;}
+        else{home.drawn++;home.pts++;away.drawn++;away.pts++;}
     });
+    gd.standings.sort((a,b)=>b.pts-a.pts||b.gd-a.gd||b.gf-a.gf);
+}
 
-    window.addEventListener('keyup', (e) => {
-        let keyName = e.key.toLowerCase();
-        if (!e.getModifierState('CapsLock')) { delete activeKeys['capslock']; }
-        if (keyName === 'a' || keyName === 'z') { delete activeKeys[keyName]; }
+function isGroupComplete(letter) {
+    return groupData[letter].matches.every(m=>m.homeScore!==null&&m.awayScore!==null);
+}
+
+function getTeamBySource(src) {
+    const [letter, rank] = src.split('_');
+    if (!groupData[letter]) return null;
+    // Grup tamamlanmamışsa null döndür
+    if (!isGroupComplete(letter)) return null;
+    const idx = parseInt(rank)-1;
+    return groupData[letter].standings[idx]?.team || null;
+}
+
+function renderGroupCard(letter) {
+    const gd = groupData[letter];
+    const s = gd.standings;
+    const complete = isGroupComplete(letter);
+    const played = gd.matches.filter(m=>m.homeScore!==null).length;
+    const hint = complete ? '✅ Tamamlandı' : `📅 ${played}/6 Maç`;
+    const rbClass = ['rb-1','rb-2','rb-3','rb-4'];
+
+    let rows = s.map((st,i)=>`
+        <tr class="rank-${i+1}">
+            <td><span class="rank-badge ${rbClass[i]}">${i+1}</span>${st.team}</td>
+            <td>${st.played}</td>
+            <td>${st.won}</td>
+            <td>${st.drawn}</td>
+            <td>${st.lost}</td>
+            <td>${st.gf}:${st.ga}</td>
+            <td class="pts-cell">${st.pts}</td>
+        </tr>`).join('');
+
+    return `
+    <div class="group-card">
+        <div class="group-title" onclick="openGroupModal('${letter}')">
+            <span>${letter} Grubu</span>
+            <span class="fixture-hint">${hint} 📋</span>
+        </div>
+        <table class="standings-table">
+            <thead><tr><th>Takım</th><th>O</th><th>G</th><th>B</th><th>M</th><th>Av</th><th>Puan</th></tr></thead>
+            <tbody>${rows}</tbody>
+        </table>
+    </div>`;
+}
+
+function buildGroupsUI() {
+    const c = document.getElementById('groups-container');
+    c.innerHTML = Object.keys(officialGroups).map(l=>{ calcStandings(l); return renderGroupCard(l); }).join('');
+}
+
+// ───────────────────────────────────────────
+// GRUP FİKSTÜR MODALI
+// ───────────────────────────────────────────
+function openGroupModal(letter) {
+    modalMode = 'group';
+    modalGroupLetter = letter;
+    const gd = groupData[letter];
+    document.getElementById('modal-title').innerText = `${letter} Grubu — Fikstür & Sonuçlar`;
+
+    const played = gd.matches.filter(m=>m.homeScore!==null).length;
+    const warnHtml = played<6
+        ? `<div class="modal-warning">⚠️ Tüm maçlar tamamlanmadan takımlar eleme turuna geçemez (${played}/6 oynandı)</div>`
+        : '';
+
+    let matchesHtml = gd.matches.map((m,idx)=>{
+        const done = m.homeScore!==null && m.awayScore!==null;
+        const hs = done ? m.homeScore : '';
+        const as_ = done ? m.awayScore : '';
+        return `
+        <div class="fixture-match ${done?'match-played':''}" id="gm-card-${idx}">
+            <div class="fixture-match-label">Maç ${idx+1}</div>
+            <div class="fixture-teams-row">
+                <span class="fixture-team-name home">${m.home}</span>
+                <div class="score-inputs">
+                    <input class="score-input" type="number" min="0" max="30" id="gms-${idx}-h" value="${hs}" placeholder="-" oninput="onGroupScoreInput(${idx})">
+                    <span class="score-sep">:</span>
+                    <input class="score-input" type="number" min="0" max="30" id="gms-${idx}-a" value="${as_}" placeholder="-" oninput="onGroupScoreInput(${idx})">
+                </div>
+                <span class="fixture-team-name away">${m.away}</span>
+            </div>
+        </div>`;
+    }).join('');
+
+    document.getElementById('modal-body').innerHTML = warnHtml + matchesHtml;
+    document.getElementById('modal-actions').innerHTML = `
+        <button class="btn-reset-m" onclick="resetGroupMatches()">Sıfırla</button>
+        <button class="btn-apply" onclick="applyGroupScores()">✅ Uygula & Sıralamayı Güncelle</button>`;
+    document.getElementById('fixture-modal').classList.add('open');
+}
+
+function onGroupScoreInput(idx) {
+    const hv = document.getElementById(`gms-${idx}-h`).value;
+    const av = document.getElementById(`gms-${idx}-a`).value;
+    document.getElementById(`gm-card-${idx}`).classList.toggle('match-played', hv!==''&&av!=='');
+}
+
+function resetGroupMatches() {
+    if (!modalGroupLetter) return;
+    groupData[modalGroupLetter].matches.forEach(m=>{ m.homeScore=null; m.awayScore=null; });
+    calcStandings(modalGroupLetter);
+    buildGroupsUI();
+    updateBracket();
+    openGroupModal(modalGroupLetter);
+}
+
+function applyGroupScores() {
+    if (!modalGroupLetter) return;
+    const gd = groupData[modalGroupLetter];
+    gd.matches.forEach((m,idx)=>{
+        const hv = document.getElementById(`gms-${idx}-h`)?.value.trim();
+        const av = document.getElementById(`gms-${idx}-a`)?.value.trim();
+        m.homeScore = (hv!==''&&av!=='') ? parseInt(hv) : null;
+        m.awayScore = (hv!==''&&av!=='') ? parseInt(av) : null;
     });
+    calcStandings(modalGroupLetter);
+    buildGroupsUI();
+    updateBracket();
+    closeModal();
+}
 
-    function toggleAdminPanel(show) {
-        const panel = document.getElementById('admin-panel');
-        if (show) {
-            panel.style.display = 'block';
-            let currentLocal = localStorage.getItem('milli_sim_count') || "1";
-            document.getElementById('visitor-count').innerText = currentLocal;
+// ───────────────────────────────────────────
+// KO AŞAMA STATE BAŞLAT
+// ───────────────────────────────────────────
+function initKoMatches() {
+    koMatches = {};
+    KO_STAGES.forEach(st=>{
+        for (let i=0; i<st.count; i++) {
+            koMatches[`${st.key}_${i}`] = { t1:null, t2:null, t1score:null, t2score:null, winner:null };
+        }
+    });
+}
+
+// ───────────────────────────────────────────
+// ELİMİNASYON AĞACI RENDER
+// ───────────────────────────────────────────
+function updateBracket() {
+    // Son 32: Kaynaktan takımları al (yalnızca grup tamamsa)
+    matchTemplate.forEach((mt,idx)=>{
+        const km = koMatches[`s32_${idx}`];
+        const newT1 = getTeamBySource(mt.t1s);
+        const newT2 = getTeamBySource(mt.t2s);
+        // Takım değiştiyse skor/kazananı sıfırla
+        if (km.t1 !== newT1 || km.t2 !== newT2) {
+            km.t1 = newT1; km.t2 = newT2;
+            km.t1score = null; km.t2score = null; km.winner = null;
+            // Bu maç değişince üst aşamaları da sıfırla
+            cascadeClearKo('s32', idx);
+        }
+    });
+    renderKoStage('s32');
+    renderKoStage('s16');
+    renderKoStage('s8');
+    renderKoStage('s4');
+    renderKoStage('s2');
+    updateProgressLabels();
+    checkChampion();
+}
+
+function renderKoStage(stageKey) {
+    const st = KO_STAGES.find(s=>s.key===stageKey);
+    const container = document.getElementById(stageKey);
+    let html = '';
+    for (let i=0; i<st.count; i++) {
+        html += renderKoMatchBox(stageKey, i, st);
+    }
+    container.innerHTML = html;
+}
+
+function renderKoMatchBox(stageKey, idx, st) {
+    const key = `${stageKey}_${idx}`;
+    const km = koMatches[key];
+    const t1 = km.t1 || '—';
+    const t2 = km.t2 || '—';
+    const isLocked = !km.t1 || !km.t2; // Takımlar henüz belli değilse kilitli
+    const isDone = km.winner !== null;
+    const scoreLabel = isDone ? `${km.t1score} - ${km.t2score}` : '';
+
+    const t1Winner = isDone && km.winner === km.t1 ? 'winner' : '';
+    const t2Winner = isDone && km.winner === km.t2 ? 'winner' : '';
+    const lockedClass = isLocked ? 'locked-box' : '';
+    const completedClass = isDone ? 'completed' : '';
+    const editBtn = !isLocked
+        ? `<button class="match-edit-btn" onclick="openKoModal('${stageKey}',${idx})">⚽ ${isDone?'Sonucu Düzenle':'Maç Sonucunu Gir'}</button>`
+        : '';
+    const t1ScoreHtml = isDone ? `<span class="team-score">${km.t1score}</span>` : '';
+    const t2ScoreHtml = isDone ? `<span class="team-score">${km.t2score}</span>` : '';
+
+    return `
+    <div class="match-box ${completedClass} ${lockedClass}">
+        <div class="match-label">
+            <span>${st.label} ${idx+1}</span>
+            ${scoreLabel ? `<span class="match-score-badge">${scoreLabel}</span>` : ''}
+        </div>
+        <div class="match-team ${t1Winner}">${t1} ${t1ScoreHtml}</div>
+        <div class="match-team ${t2Winner}">${t2} ${t2ScoreHtml}</div>
+        ${editBtn}
+    </div>`;
+}
+
+function updateProgressLabels() {
+    KO_STAGES.forEach(st=>{
+        const el = document.getElementById(`prog-${st.key}`);
+        if (!el) return;
+        const total = st.count;
+        const done = Array.from({length:total},(_,i)=>koMatches[`${st.key}_${i}`]).filter(m=>m.winner).length;
+        if (done===0) el.innerHTML = '';
+        else el.innerHTML = `${done}/${total} maç tamamlandı <span>${done===total?'✅ Tur Bitti':'Devam Ediyor'}</span>`;
+    });
+}
+
+// ───────────────────────────────────────────
+// KO MAÇI MODALI
+// ───────────────────────────────────────────
+function openKoModal(stageKey, idx) {
+    const km = koMatches[`${stageKey}_${idx}`];
+    if (!km.t1 || !km.t2) return;
+    modalMode = 'ko';
+    modalKoKey = `${stageKey}_${idx}`;
+    const st = KO_STAGES.find(s=>s.key===stageKey);
+    document.getElementById('modal-title').innerText = `${st.label} ${idx+1} — Maç Sonucu`;
+
+    const hs = km.t1score !== null ? km.t1score : '';
+    const as_ = km.t2score !== null ? km.t2score : '';
+    let winnerHtml = '';
+    if (km.winner) {
+        winnerHtml = `<div style="text-align:center;margin-top:10px;"><span class="ko-winner-label">🏆 Kazanan: ${km.winner}</span></div>`;
+    }
+
+    document.getElementById('modal-body').innerHTML = `
+        <div class="ko-match-box ${km.winner?'match-played':''}">
+            <div class="ko-teams-vs">
+                <span class="ko-team left">${km.t1}</span>
+                <span class="ko-vs">VS</span>
+                <span class="ko-team right">${km.t2}</span>
+            </div>
+            <div class="ko-score-row">
+                <input class="ko-score-input" type="number" min="0" max="30" id="ko-h" value="${hs}" placeholder="0" oninput="onKoScoreInput()">
+                <span class="ko-score-sep">:</span>
+                <input class="ko-score-input" type="number" min="0" max="30" id="ko-a" value="${as_}" placeholder="0" oninput="onKoScoreInput()">
+            </div>
+            <div class="ko-note">Eşitlik durumunda uzatma/penaltı galibini manuel seçebilirsiniz.</div>
+            ${winnerHtml}
+            <div id="ko-draw-picker" style="display:none;margin-top:12px;text-align:center;">
+                <p style="font-size:13px;color:#64748b;margin-bottom:8px;">Beraberlik! Uzatma/Penaltı kazananı seçin:</p>
+                <div style="display:flex;gap:10px;justify-content:center;">
+                    <button onclick="pickKoDraw('t1')" style="flex:1;padding:10px;background:#dbeafe;border:2px solid #3b82f6;border-radius:8px;font-weight:bold;cursor:pointer;font-size:13px;">${km.t1}</button>
+                    <button onclick="pickKoDraw('t2')" style="flex:1;padding:10px;background:#fce7f3;border:2px solid #ec4899;border-radius:8px;font-weight:bold;cursor:pointer;font-size:13px;">${km.t2}</button>
+                </div>
+            </div>
+        </div>`;
+
+    document.getElementById('modal-actions').innerHTML = `
+        <button class="btn-reset-m" onclick="resetKoMatch()">Sıfırla</button>
+        <button class="btn-apply" id="ko-apply-btn" onclick="applyKoScore()" ${km.winner?'':'disabled'}>✅ Uygula</button>`;
+
+    document.getElementById('fixture-modal').classList.add('open');
+    onKoScoreInput(); // Başlangıç durumunu ayarla
+}
+
+function onKoScoreInput() {
+    const hv = document.getElementById('ko-h')?.value.trim();
+    const av = document.getElementById('ko-a')?.value.trim();
+    const applyBtn = document.getElementById('ko-apply-btn');
+    const drawPicker = document.getElementById('ko-draw-picker');
+    if (!applyBtn || !drawPicker) return;
+
+    if (hv!=='' && av!=='') {
+        const h = parseInt(hv), a = parseInt(av);
+        if (h > a) {
+            drawPicker.style.display = 'none';
+            applyBtn.disabled = false;
+            applyBtn.dataset.winner = 'auto'; // t1 kazandı
+        } else if (a > h) {
+            drawPicker.style.display = 'none';
+            applyBtn.disabled = false;
+            applyBtn.dataset.winner = 'auto'; // t2 kazandı
         } else {
-            panel.style.display = 'none';
+            // Beraberlik → kazanan seçtirilmeli
+            drawPicker.style.display = 'block';
+            applyBtn.disabled = true;
+            delete applyBtn.dataset.winner;
         }
+    } else {
+        drawPicker.style.display = 'none';
+        applyBtn.disabled = true;
+    }
+}
+
+function pickKoDraw(which) {
+    const km = koMatches[modalKoKey];
+    const winner = which === 't1' ? km.t1 : km.t2;
+    const applyBtn = document.getElementById('ko-apply-btn');
+    applyBtn.disabled = false;
+    applyBtn.dataset.winner = which;
+    document.getElementById('ko-draw-picker').innerHTML = `<div style="text-align:center"><span class="ko-winner-label">🏆 Kazanan: ${winner}</span></div>`;
+}
+
+function applyKoScore() {
+    const km = koMatches[modalKoKey];
+    const hv = parseInt(document.getElementById('ko-h').value);
+    const av = parseInt(document.getElementById('ko-a').value);
+    km.t1score = hv;
+    km.t2score = av;
+    if (hv > av) km.winner = km.t1;
+    else if (av > hv) km.winner = km.t2;
+    else {
+        const applyBtn = document.getElementById('ko-apply-btn');
+        km.winner = applyBtn.dataset.winner === 't1' ? km.t1 : km.t2;
     }
 
-    // DÜNYA KUPASI 2026 GRUPLARI
-    const officialGroups = {
-        "A": ["Meksika", "Güney Afrika", "Güney Kore", "Çekya"],
-        "B": ["Kanada", "Bosna-Hersek", "Katar", "İsviçre"],
-        "C": ["Brezilya", "Fas", "Haiti", "İskoçya"],
-        "D": ["ABD", "Paraguay", "Avustralya", "TÜRKİYE 🇹🇷"],
-        "E": ["Almanya", "Curaçao", "Fildişi Sahili", "Ekvador"],
-        "F": ["Hollanda", "Japonya", "İsveç", "Tunus"],
-        "G": ["Belçika", "Mısır", "İran", "Yeni Zelanda"],
-        "H": ["İspanya", "Yeşil Burun Adaları", "Suudi Arabistan", "Uruguay"],
-        "I": ["Fransa", "Senegal", "Irak", "Norveç"],
-        "J": ["Arjantin", "Cezayir", "Avusturya", "Ürdün"],
-        "K": ["Portekiz", "Kongo DC", "Özbekistan", "Kolombiya"],
-        "L": ["İngiltere", "Hırvatistan", "Gana", "Panama"]
-    };
+    // Kazananı bir sonraki aşamaya yerleştir
+    propagateKoWinner(modalKoKey);
+    closeModal();
+    updateBracket();
+}
 
-    const matchTemplate = [
-        { id: "m1", label: "A Grubu 1.'si vs B Grubu 2.'si", t1_source: "A_1", t2_source: "B_2" },
-        { id: "m2", label: "C Grubu 1.'si vs D Grubu 2.'si", t1_source: "C_1", t2_source: "D_2" },
-        { id: "m3", label: "E Grubu 1.'si vs F Grubu 2.'si", t1_source: "E_1", t2_source: "F_2" },
-        { id: "m4", label: "G Grubu 1.'si vs H Grubu 2.'si", t1_source: "G_1", t2_source: "H_2" },
-        { id: "m5", label: "B Grubu 1.'si vs A Grubu 2.'si", t1_source: "B_1", t2_source: "A_2" },
-        { id: "m6", label: "D Grubu 1.'si vs C Grubu 2.'si", t1_source: "D_1", t2_source: "C_2" },
-        { id: "m7", label: "F Grubu 1.'si vs E Grubu 2.'si", t1_source: "F_1", t2_source: "E_2" },
-        { id: "m8", label: "H Grubu 1.'si vs G Grubu 2.'si", t1_source: "H_1", t2_source: "G_2" },
-        { id: "m9", label: "I Grubu 1.'si vs J Grubu 2.'si", t1_source: "I_1", t2_source: "J_2" },
-        { id: "m10", label: "K Grubu 1.'si vs L Grubu 2.'si", t1_source: "K_1", t2_source: "L_2" },
-        { id: "m11", label: "J Grubu 1.'si vs I Grubu 2.'si", t1_source: "J_1", t2_source: "I_2" },
-        { id: "m12", label: "L Grubu 1.'si vs K Grubu 2.'si", t1_source: "L_1", t2_source: "K_2" },
-        { id: "m13", label: "En İyi 3. Eşleşmesi 1", t1_source: "A_3", t2_source: "C_3" },
-        { id: "m14", label: "En İyi 3. Eşleşmesi 2", t1_source: "D_3", t2_source: "E_3" },
-        { id: "m15", label: "En İyi 3. Eşleşmesi 3", t1_source: "F_3", t2_source: "H_3" },
-        { id: "m16", label: "En İyi 3. Eşleşmesi 4", t1_source: "I_3", t2_source: "L_3" }
-    ];
+function resetKoMatch() {
+    const km = koMatches[modalKoKey];
+    km.t1score = null; km.t2score = null; km.winner = null;
+    cascadeClearKo(...modalKoKey.split('_').map((v,i)=>i===1?parseInt(v):v));
+    closeModal();
+    updateBracket();
+}
 
-    let finalWinner = "";
-    let finalLoser = "";
-    let thirdWinner = "TÜRKİYE 🇹🇷"; // Yarı final elenenlerinden varsayılan otomatik 3. tahmini
+function propagateKoWinner(koKey) {
+    const [stageKey, idxStr] = koKey.split('_');
+    const idx = parseInt(idxStr);
+    const km = koMatches[koKey];
+    if (!km.winner) return;
 
-    function startApp() {
-        document.getElementById('welcome-screen').style.opacity = '0';
-        setTimeout(() => {
-            document.getElementById('welcome-screen').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
-        }, 500);
+    const st = KO_STAGES.find(s=>s.key===stageKey);
+    if (!st || st.next==='champ') return;
+
+    const nextIdx = Math.floor(idx/2);
+    const isFirstSlot = idx%2===0; // Çift → t1, Tek → t2
+    const nextKey = `${st.next}_${nextIdx}`;
+    const nkm = koMatches[nextKey];
+    if (!nkm) return;
+
+    const oldVal = isFirstSlot ? nkm.t1 : nkm.t2;
+    if (isFirstSlot) nkm.t1 = km.winner;
+    else nkm.t2 = km.winner;
+
+    // Eğer bu slot değiştiyse sonraki aşamayı temizle
+    if (oldVal !== km.winner) {
+        nkm.t1score = null; nkm.t2score = null; nkm.winner = null;
+        cascadeClearKo(st.next, nextIdx);
     }
+}
 
-    function buildInterface() {
-        const container = document.getElementById('groups-container');
-        let html = "";
-        for (const [letter, teams] of Object.entries(officialGroups)) {
-            html += `<div class="group-card"><div class="group-title">${letter} Grubu</div>`;
-            teams.forEach(team => {
-                html += `<div class="team-row" data-group="${letter}" data-team="${team}" onclick="selectGroupTeam(this)">
-                            <span>${team}</span><span class="badge">Sırasız</span>
-                         </div>`;
-            });
-            html += `</div>`;
+function cascadeClearKo(stageKey, idx) {
+    // Bu maçtan yukarıya doğru temizle
+    const stOrder = ['s32','s16','s8','s4','s2'];
+    let curStage = stageKey, curIdx = idx;
+    let started = false;
+
+    for (const sk of stOrder) {
+        if (sk === curStage) { started = true; continue; }
+        if (!started) continue;
+        const nextIdx = Math.floor(curIdx/2);
+        const isFirst = curIdx%2===0;
+        const nextKey = `${sk}_${nextIdx}`;
+        const nkm = koMatches[nextKey];
+        if (nkm) {
+            if (isFirst) nkm.t1 = null;
+            else nkm.t2 = null;
+            nkm.t1score = null; nkm.t2score = null; nkm.winner = null;
         }
-        container.innerHTML = html;
+        curIdx = nextIdx;
+    }
+}
+
+function checkChampion() {
+    const finalKm = koMatches['s2_0'];
+    if (finalKm && finalKm.winner) {
+        finalWinner = finalKm.winner;
+        finalLoser = finalKm.winner === finalKm.t1 ? finalKm.t2 : finalKm.t1;
+        // 3.'yü yarı final kaybedenlerinden al
+        const sf1 = koMatches['s4_0'];
+        const sf2 = koMatches['s4_1'];
+        const sf1Loser = sf1?.winner ? (sf1.winner===sf1.t1?sf1.t2:sf1.t1) : null;
+        const sf2Loser = sf2?.winner ? (sf2.winner===sf2.t1?sf2.t2:sf2.t1) : null;
+        thirdWinner = sf1Loser || sf2Loser || "TÜRKİYE 🇹🇷";
+        document.getElementById('champ-box').style.display = 'block';
+    } else {
         document.getElementById('champ-box').style.display = 'none';
     }
+}
 
-    function selectGroupTeam(element) {
-        const group = element.getAttribute('data-group');
-        if (element.className.includes('rank-')) {
-            document.querySelectorAll(`.team-row[data-group="${group}"]`).forEach(row => {
-                row.className = 'team-row';
-                row.querySelector('.badge').innerText = 'Sırasız';
-            });
-            updateBracket();
-            return;
-        }
-        const selected = document.querySelectorAll(`.team-row[data-group="${group}"].rank-1, .team-row[data-group="${group}"].rank-2, .team-row[data-group="${group}"].rank-3, .team-row[data-group="${group}"].rank-4`);
-        const nextRank = selected.length + 1;
-        if (nextRank > 4) return;
+// ───────────────────────────────────────────
+// MODAL ORTAK
+// ───────────────────────────────────────────
+function closeModal() {
+    document.getElementById('fixture-modal').classList.remove('open');
+    modalMode = null; modalGroupLetter = null; modalKoKey = null;
+}
+function handleModalBackdrop(e) {
+    if (e.target === document.getElementById('fixture-modal')) closeModal();
+}
 
-        element.classList.add(`rank-${nextRank}`);
-        element.querySelector('.badge').innerText = nextRank === 1 ? "1. ÇIKTI 🥇" : nextRank === 2 ? "2. ÇIKTI 🥈" : nextRank === 3 ? "3. ADAYI 🥉" : "4. ELENDİ ❌";
-        updateBracket();
-    }
+// ───────────────────────────────────────────
+// PODYUM
+// ───────────────────────────────────────────
+function showPodium() {
+    document.getElementById('podium-1').innerText = finalWinner;
+    document.getElementById('podium-2').innerText = finalLoser;
+    document.getElementById('podium-3').innerText = thirdWinner;
+    const fc = t => flagCodes[t] || 'un';
+    document.getElementById('flag-1').src = `https://flagcdn.com/w40/${fc(finalWinner)}.png`;
+    document.getElementById('flag-2').src = `https://flagcdn.com/w40/${fc(finalLoser)}.png`;
+    document.getElementById('flag-3').src = `https://flagcdn.com/w40/${fc(thirdWinner)}.png`;
+    document.getElementById('podium-screen').style.display = 'flex';
+}
 
-    function updateBracket() {
-        const groupResults = {};
-        document.querySelectorAll('.team-row').forEach(row => {
-            const g = row.getAttribute('data-group');
-            const t = row.getAttribute('data-team');
-            let rank = 0;
-            if (row.classList.contains('rank-1')) rank = 1;
-            if (row.classList.contains('rank-2')) rank = 2;
-            if (row.classList.contains('rank-3')) rank = 3;
-            if (rank > 0) groupResults[`${g}_${rank}`] = t;
-        });
-
-        let s32Html = "";
-        matchTemplate.forEach((m, idx) => {
-            const team1 = groupResults[m.t1_source] || `[${m.label.split(' vs ')[0]}]`;
-            const team2 = groupResults[m.t2_source] || `[${m.label.split(' vs ')[1]}]`;
-            s32Html += `<div class="match-box">
-                <div class="match-label">Maç ${idx+1} - ${m.label}</div>
-                <div class="match-team" id="m${idx+1}-t1" onclick="advance('s16', ${Math.floor(idx/2)}, ${(idx%2)+1}, this)">${team1}</div>
-                <div class="match-team" id="m${idx+1}-t2" onclick="advance('s16', ${Math.floor(idx/2)}, ${(idx%2)+1}, this)">${team2}</div>
-            </div>`;
-        });
-        document.getElementById('s32').innerHTML = s32Html;
-        initNextStages();
-    }
-
-    function initNextStages() {
-        const stages = [
-            { key: 's16', count: 8, title: 'Son 16 Maçı', nextKey: 's8' },
-            { key: 's8', count: 4, title: 'Çeyrek Final', nextKey: 's4' },
-            { key: 's4', count: 2, title: 'Yarı Final', nextKey: 's2' },
-            { key: 's2', count: 1, title: 'Büyük Final', nextKey: 'champ' }
-        ];
-
-        stages.forEach(st => {
-            let html = "";
-            for(let i=0; i<st.count; i++) {
-                html += `<div class="match-box">
-                    <div class="match-label">${st.title} ${i+1}</div>
-                    <div class="match-team" id="${st.key}-box-${i}-t1" onclick="advance('${st.nextKey}', ${Math.floor(i/2)}, ${(i%2)+1}, this)">...</div>
-                    <div class="match-team" id="${st.key}-box-${i}-t2" onclick="advance('${st.nextKey}', ${Math.floor(i/2)}, ${(i%2)+1}, this)">...</div>
-                </div>`;
-            }
-            document.getElementById(st.key).innerHTML = html;
-        });
-        document.getElementById('champ-box').style.display = 'none';
-    }
-
-    function advance(nextStageKey, nextMatchIdx, teamPos, element) {
-        if(element.innerText === "..." || element.innerText.startsWith("[")) return;
-        
-        const parent = element.parentElement;
-        parent.querySelectorAll('.match-team').forEach(t => t.classList.remove('winner'));
-        element.classList.add('winner');
-
-        const winnerTeamName = element.innerText;
-
-        // Yarı finalden finale kimin çıktığını kontrol edip eleneni 3. adayı yapıyoruz
-        if (nextStageKey === 's2') {
-            const kids = parent.querySelectorAll('.match-team');
-            const loser = kids[0] === element ? kids[1].innerText : kids[0].innerText;
-            if(loser !== "...") thirdWinner = loser; 
-        }
-
-        if (nextStageKey === 'champ') {
-            finalWinner = winnerTeamName;
-            const kids = parent.querySelectorAll('.match-team');
-            finalLoser = kids[0] === element ? kids[1].innerText : kids[0].innerText;
-            
-            document.getElementById('champ-box').style.display = 'block';
-            return;
-        }
-
-        const targetId = `${nextStageKey}-box-${nextMatchIdx}-t${teamPos}`;
-        const targetBox = document.getElementById(targetId);
-        if(targetBox) {
-            targetBox.innerText = winnerTeamName;
-            targetBox.classList.remove('winner');
-            clearUpperStages(nextStageKey, nextMatchIdx, teamPos);
-        }
-    }
-
-    function clearUpperStages(currentStageKey, matchIdx, teamPos) {
-        if (currentStageKey === 's2') return; 
-        const stagesOrder = ['s16', 's8', 's4', 's2'];
-        let startClearing = false;
-        let checkMatchIdx = Math.floor(matchIdx / 2);
-        let checkTeamPos = (matchIdx % 2) + 1;
-
-        for (let i = 0; i < stagesOrder.length; i++) {
-            if (stagesOrder[i] === currentStageKey) {
-                startClearing = true;
-                continue;
-            }
-            if (startClearing) {
-                const nextTargetId = `${stagesOrder[i]}-box-${checkMatchIdx}-t${checkTeamPos}`;
-                const nextBox = document.getElementById(nextTargetId);
-                if (nextBox && nextBox.innerText !== "...") {
-                    nextBox.innerText = "...";
-                    nextBox.classList.remove('winner');
-                }
-                checkMatchIdx = Math.floor(checkMatchIdx / 2);
-                checkTeamPos = (checkMatchIdx % 2) + 1;
-            }
-        }
-        document.getElementById('champ-box').style.display = 'none';
-    }
-
-    // TEBRİK VE PODYUM EKRANINI AÇAN FONKSİYON
-    function showPodium() {
-        document.getElementById('podium-1').innerText = finalWinner;
-        document.getElementById('podium-2').innerText = finalLoser;
-        document.getElementById('podium-3').innerText = thirdWinner;
-
-        // Bayrakları URL'den yükleme
-        const f1 = flagCodes[finalWinner] || "un";
-        const f2 = flagCodes[finalLoser] || "un";
-        const f3 = flagCodes[thirdWinner] || "un";
-
-        document.getElementById('flag-1').src = `https://flagcdn.com/w40/${f1}.png`;
-        document.getElementById('flag-2').src = `https://flagcdn.com/w40/${f2}.png`;
-        document.getElementById('flag-3').src = `https://flagcdn.com/w40/${f3}.png`;
-
-        document.getElementById('podium-screen').style.display = 'flex';
-    }
-
-    function resetTournament() {
-        document.getElementById('podium-screen').style.display = 'none';
-        buildInterface();
-        updateBracket();
-        countUser(); // Yeni turnuvada sayacı artırır
-    }
-
-    buildInterface();
+function resetTournament() {
+    document.getElementById('podium-screen').style.display = 'none';
+    initGroupData();
+    initKoMatches();
+    buildGroupsUI();
     updateBracket();
     countUser();
-</script>
+}
 
+// ───────────────────────────────────────────
+// DİĞER
+// ───────────────────────────────────────────
+function startApp() {
+    const ws = document.getElementById('welcome-screen');
+    ws.style.opacity = '0';
+    setTimeout(()=>{ ws.style.display='none'; document.getElementById('main-content').style.display='block'; }, 500);
+}
+
+function countUser() {
+    let c = localStorage.getItem('milli_sim_count');
+    c = c ? (parseInt(c)+1).toString() : "1";
+    localStorage.setItem('milli_sim_count', c);
+    document.getElementById('visitor-count').innerText = c;
+}
+
+const activeKeys = {};
+window.addEventListener('keydown', e=>{
+    const k=e.key.toLowerCase();
+    if(e.getModifierState('CapsLock')) activeKeys['capslock']=true;
+    if(k==='a'||k==='z') activeKeys[k]=true;
+    if(activeKeys['capslock']&&activeKeys['a']&&activeKeys['z']) toggleAdminPanel(true);
+});
+window.addEventListener('keyup', e=>{
+    const k=e.key.toLowerCase();
+    if(!e.getModifierState('CapsLock')) delete activeKeys['capslock'];
+    if(k==='a'||k==='z') delete activeKeys[k];
+});
+function toggleAdminPanel(show) {
+    const p=document.getElementById('admin-panel');
+    if(show){p.style.display='block';document.getElementById('visitor-count').innerText=localStorage.getItem('milli_sim_count')||"1";}
+    else p.style.display='none';
+}
+
+// BAŞLAT
+initGroupData();
+initKoMatches();
+buildGroupsUI();
+updateBracket();
+countUser();
+</script>
 </body>
 </html>
