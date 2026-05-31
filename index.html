@@ -117,6 +117,88 @@
             font-weight: bold;
         }
 
+        /* TURNUVA BİTİŞ EKRANI (PODYUM) */
+        #podium-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            z-index: 9998;
+            color: white;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .podium-card {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            padding: 40px;
+            border-radius: 24px;
+            border: 2px solid #eab308;
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+        }
+        .podium-title {
+            font-size: 32px;
+            color: #fde047;
+            margin-bottom: 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .podium-row {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.05);
+            margin: 15px 0;
+            padding: 15px 20px;
+            border-radius: 12px;
+            border-left: 6px solid transparent;
+            font-size: 20px;
+        }
+        .p-1 { border-color: var(--pos1); background: rgba(254, 240, 138, 0.1); }
+        .p-2 { border-color: var(--pos2); background: rgba(226, 232, 240, 0.08); }
+        .p-3 { border-color: var(--pos3); background: rgba(253, 237, 213, 0.08); }
+        
+        .medal {
+            font-size: 28px;
+            margin-right: 15px;
+            width: 40px;
+            text-align: center;
+        }
+        .podium-flag {
+            width: 35px;
+            height: 23px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        .podium-team-name {
+            font-weight: bold;
+            flex-grow: 1;
+            text-align: left;
+        }
+        .restart-btn {
+            background: linear-gradient(135deg, #22c55e, #15803d);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            margin-top: 25px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .restart-btn:hover { transform: scale(1.05); }
+
         /* ANA SİMÜLATÖR İÇERİĞİ */
         #main-content {
             display: none;
@@ -227,6 +309,7 @@
             font-weight: bold;
             color: #854d0e;
             margin-top: 30px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -241,16 +324,45 @@
     <button class="close-admin-btn" onclick="toggleAdminPanel(false)">Paneli Kapat</button>
 </div>
 
+<div id="podium-screen">
+    <div class="podium-card">
+        <div class="podium-title">🏆 Senin Dünya Kupan 🏆</div>
+        
+        <div class="podium-row p-1">
+            <span class="medal">🥇</span>
+            <img id="flag-1" class="podium-flag" src="" alt="">
+            <span class="podium-team-name" id="podium-1">Takım</span>
+            <span>1.</span>
+        </div>
+
+        <div class="podium-row p-2">
+            <span class="medal">🥈</span>
+            <img id="flag-2" class="podium-flag" src="" alt="">
+            <span class="podium-team-name" id="podium-2">Takım</span>
+            <span>2.</span>
+        </div>
+
+        <div class="podium-row p-3">
+            <span class="medal">🥉</span>
+            <img id="flag-3" class="podium-flag" src="" alt="">
+            <span class="podium-team-name" id="podium-3">Takım</span>
+            <span>3.</span>
+        </div>
+
+        <button class="restart-btn" onclick="resetTournament()">Yeni Simülasyon Başlat 🔄</button>
+    </div>
+</div>
+
 <div id="welcome-screen">
     <h1>🇹🇷 YERLİ VE MİLLİ DÜNYA KUPASI YOLU 🇹🇷</h1>
-    <p>2026 FIFA Dünya Kupası Resmi Simülatör Platformuna Hoş Geldiniz</p>
+    <p>2026 Dünya Kupası Simülatör Platformuna Hoş Geldiniz</p>
     <button class="milli-btn" onclick="startApp()">SİMÜLASYONU BAŞLAT ⚽</button>
 </div>
 
 <div id="main-content">
     <header>
-        <h1>🏆 2026 FIFA DÜNYA KUPASI SİMÜLATÖRÜ ⚽</h1>
-        <p>Grupları tıklayarak sıralayın, resmi eşleşmeler otomatik olarak hazırlansın!</p>
+        <h1>🏆 2026 DÜNYA KUPASI SİMÜLATÖRÜ ⚽</h1>
+        <p>Grupları tıklayarak sıralayın, turnuva eşleşmeleri otomatik olarak hazırlansın!</p>
     </header>
 
     <h2>📋 1. Aşama: Grupları Sırala</h2>
@@ -274,12 +386,27 @@
         <h3>🏆 Büyük Final</h3>
         <div class="stage-container" id="s2"></div>
 
-        <div class="champion-banner" id="champ-box">🥇 DÜNYA ŞAMPİYONU: <span id="champion-name">...</span></div>
+        <div class="champion-banner" id="champ-box" onclick="showPodium()">🥇 TURNUVA BİTTİ! PODYUMU GÖRMEK İÇİN TIKLA 🎉</div>
     </div>
 </div>
 
 <script>
-    // GARANTİLİ YEREL SAYAÇ SİSTEMİ (Undefined Hatası Vermez)
+    // DÜNYA ÜLKELERİNİN BAYRAK KODLARI EŞLEŞMESİ
+    const flagCodes = {
+        "Meksika": "mx", "Güney Afrika": "za", "Güney Kore": "kr", "Çekya": "cz",
+        "Kanada": "ca", "Bosna-Hersek": "ba", "Katar": "qa", "İsviçre": "ch",
+        "Brezilya": "br", "Fas": "ma", "Haiti": "ht", "İskoçya": "gb-sct",
+        "ABD": "us", "Paraguay": "py", "Avustralya": "au", "TÜRKİYE 🇹🇷": "tr",
+        "Almanya": "de", "Curaçao": "cw", "Fildişi Sahili": "ci", "Ekvador": "ec",
+        "Hollanda": "nl", "Japonya": "jp", "İsveç": "se", "Tunus": "tn",
+        "Belçika": "be", "Mısır": "eg", "İran": "ir", "Yeni Zelanda": "nz",
+        "İspanya": "es", "Yeşil Burun Adaları": "cv", "Suudi Arabistan": "sa", "Uruguay": "uy",
+        "Fransa": "fr", "Senegal": "sn", "Irak": "iq", "Norveç": "no",
+        "Arjantin": "ar", "Cezayir": "dz", "Avusturya": "at", "Ürdün": "jo",
+        "Portekiz": "pt", "Kongo DC": "cd", "Özbekistan": "uz", "Kolombiya": "co",
+        "İngiltere": "gb-eng", "Hırvatistan": "hr", "Gana": "gh", "Panama": "pa"
+    };
+
     function countUser() {
         let currentLocal = localStorage.getItem('milli_sim_count');
         if (!currentLocal) {
@@ -291,29 +418,18 @@
         document.getElementById('visitor-count').innerText = currentLocal;
     }
 
-    // GİZLİ TUŞ KOMBİNASYONU (Caps Lock + A + Z)
     const activeKeys = {};
     window.addEventListener('keydown', (e) => {
         let keyName = e.key.toLowerCase();
-        if (e.getModifierState('CapsLock')) {
-            activeKeys['capslock'] = true;
-        }
-        if (keyName === 'a' || keyName === 'z') {
-            activeKeys[keyName] = true;
-        }
-        if (activeKeys['capslock'] && activeKeys['a'] && activeKeys['z']) {
-            toggleAdminPanel(true);
-        }
+        if (e.getModifierState('CapsLock')) { activeKeys['capslock'] = true; }
+        if (keyName === 'a' || keyName === 'z') { activeKeys[keyName] = true; }
+        if (activeKeys['capslock'] && activeKeys['a'] && activeKeys['z']) { toggleAdminPanel(true); }
     });
 
     window.addEventListener('keyup', (e) => {
         let keyName = e.key.toLowerCase();
-        if (!e.getModifierState('CapsLock')) {
-            delete activeKeys['capslock'];
-        }
-        if (keyName === 'a' || keyName === 'z') {
-            delete activeKeys[keyName];
-        }
+        if (!e.getModifierState('CapsLock')) { delete activeKeys['capslock']; }
+        if (keyName === 'a' || keyName === 'z') { delete activeKeys[keyName]; }
     });
 
     function toggleAdminPanel(show) {
@@ -327,7 +443,7 @@
         }
     }
 
-    // RESMİ DÜNYA KUPASI 2026 GRUPLARI
+    // DÜNYA KUPASI 2026 GRUPLARI
     const officialGroups = {
         "A": ["Meksika", "Güney Afrika", "Güney Kore", "Çekya"],
         "B": ["Kanada", "Bosna-Hersek", "Katar", "İsviçre"],
@@ -362,6 +478,10 @@
         { id: "m16", label: "En İyi 3. Eşleşmesi 4", t1_source: "I_3", t2_source: "L_3" }
     ];
 
+    let finalWinner = "";
+    let finalLoser = "";
+    let thirdWinner = "TÜRKİYE 🇹🇷"; // Yarı final elenenlerinden varsayılan otomatik 3. tahmini
+
     function startApp() {
         document.getElementById('welcome-screen').style.opacity = '0';
         setTimeout(() => {
@@ -383,11 +503,11 @@
             html += `</div>`;
         }
         container.innerHTML = html;
+        document.getElementById('champ-box').style.display = 'none';
     }
 
     function selectGroupTeam(element) {
         const group = element.getAttribute('data-group');
-
         if (element.className.includes('rank-')) {
             document.querySelectorAll(`.team-row[data-group="${group}"]`).forEach(row => {
                 row.className = 'team-row';
@@ -396,14 +516,12 @@
             updateBracket();
             return;
         }
-
         const selected = document.querySelectorAll(`.team-row[data-group="${group}"].rank-1, .team-row[data-group="${group}"].rank-2, .team-row[data-group="${group}"].rank-3, .team-row[data-group="${group}"].rank-4`);
         const nextRank = selected.length + 1;
         if (nextRank > 4) return;
 
         element.classList.add(`rank-${nextRank}`);
         element.querySelector('.badge').innerText = nextRank === 1 ? "1. ÇIKTI 🥇" : nextRank === 2 ? "2. ÇIKTI 🥈" : nextRank === 3 ? "3. ADAYI 🥉" : "4. ELENDİ ❌";
-        
         updateBracket();
     }
 
@@ -430,7 +548,6 @@
             </div>`;
         });
         document.getElementById('s32').innerHTML = s32Html;
-
         initNextStages();
     }
 
@@ -453,7 +570,7 @@
             }
             document.getElementById(st.key).innerHTML = html;
         });
-        document.getElementById('champion-name').innerText = "...";
+        document.getElementById('champ-box').style.display = 'none';
     }
 
     function advance(nextStageKey, nextMatchIdx, teamPos, element) {
@@ -465,8 +582,19 @@
 
         const winnerTeamName = element.innerText;
 
+        // Yarı finalden finale kimin çıktığını kontrol edip eleneni 3. adayı yapıyoruz
+        if (nextStageKey === 's2') {
+            const kids = parent.querySelectorAll('.match-team');
+            const loser = kids[0] === element ? kids[1].innerText : kids[0].innerText;
+            if(loser !== "...") thirdWinner = loser; 
+        }
+
         if (nextStageKey === 'champ') {
-            document.getElementById('champion-name').innerText = "👑 " + winnerTeamName + " 🏆";
+            finalWinner = winnerTeamName;
+            const kids = parent.querySelectorAll('.match-team');
+            finalLoser = kids[0] === element ? kids[1].innerText : kids[0].innerText;
+            
+            document.getElementById('champ-box').style.display = 'block';
             return;
         }
 
@@ -502,12 +630,37 @@
                 checkTeamPos = (checkMatchIdx % 2) + 1;
             }
         }
-        document.getElementById('champion-name').innerText = "...";
+        document.getElementById('champ-box').style.display = 'none';
+    }
+
+    // TEBRİK VE PODYUM EKRANINI AÇAN FONKSİYON
+    function showPodium() {
+        document.getElementById('podium-1').innerText = finalWinner;
+        document.getElementById('podium-2').innerText = finalLoser;
+        document.getElementById('podium-3').innerText = thirdWinner;
+
+        // Bayrakları URL'den yükleme
+        const f1 = flagCodes[finalWinner] || "un";
+        const f2 = flagCodes[finalLoser] || "un";
+        const f3 = flagCodes[thirdWinner] || "un";
+
+        document.getElementById('flag-1').src = `https://flagcdn.com/w40/${f1}.png`;
+        document.getElementById('flag-2').src = `https://flagcdn.com/w40/${f2}.png`;
+        document.getElementById('flag-3').src = `https://flagcdn.com/w40/${f3}.png`;
+
+        document.getElementById('podium-screen').style.display = 'flex';
+    }
+
+    function resetTournament() {
+        document.getElementById('podium-screen').style.display = 'none';
+        buildInterface();
+        updateBracket();
+        countUser(); // Yeni turnuvada sayacı artırır
     }
 
     buildInterface();
     updateBracket();
-    countUser(); // Hatasız lokal sayacı başlatır
+    countUser();
 </script>
 
 </body>
