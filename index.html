@@ -232,24 +232,21 @@
 </head>
 <body>
 
-<!-- GİZLİ YÖNETİCİ PANELİ -->
 <div id="admin-panel">
     <h3>Reis Yönetim Paneli 🕶️</h3>
     <div class="stat-box">
-        <p>Turnuvayı Kullanan Kişi Sayısı</p>
-        <div class="stat-number" id="visitor-count">Yükleniyor...</div>
+        <p>Turnuva Simülasyon Sayısı</p>
+        <div class="stat-number" id="visitor-count">1</div>
     </div>
     <button class="close-admin-btn" onclick="toggleAdminPanel(false)">Paneli Kapat</button>
 </div>
 
-<!-- GİRİŞ EKRANI -->
 <div id="welcome-screen">
     <h1>🇹🇷 YERLİ VE MİLLİ DÜNYA KUPASI YOLU 🇹🇷</h1>
     <p>2026 FIFA Dünya Kupası Resmi Simülatör Platformuna Hoş Geldiniz</p>
     <button class="milli-btn" onclick="startApp()">SİMÜLASYONU BAŞLAT ⚽</button>
 </div>
 
-<!-- SİMÜLATÖR ANA İÇERİK -->
 <div id="main-content">
     <header>
         <h1>🏆 2026 FIFA DÜNYA KUPASI SİMÜLATÖRÜ ⚽</h1>
@@ -282,40 +279,28 @@
 </div>
 
 <script>
-    // SAYAÇ VE ANALİTİK ALTYAPISI (Ücretsiz Güvenli API)
-    // Sitenin toplam kaç kez açıldığını hafızada tutar.
-    const counterUrl = "https://api.counterapi.dev/v1/salamracing/dunya-kupasi/up";
-    const getCountUrl = "https://api.counterapi.dev/v1/salamracing/dunya-kupasi";
-
-    // Kullanıcı giriş yaptığında sayacı 1 artırır
+    // GARANTİLİ YEREL SAYAÇ SİSTEMİ (Undefined Hatası Vermez)
     function countUser() {
-        fetch(counterUrl)
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('visitor-count').innerText = data.value;
-            })
-            .catch(() => {
-                // Eğer API'de anlık kesinti olursa local hafızayı devreye sokar
-                let localCount = localStorage.getItem('mock_users') || Math.floor(Math.random() * 50) + 12;
-                localCount = parseInt(localCount) + 1;
-                localStorage.setItem('mock_users', localCount);
-                document.getElementById('visitor-count').innerText = localCount;
-            });
+        let currentLocal = localStorage.getItem('milli_sim_count');
+        if (!currentLocal) {
+            currentLocal = "1";
+        } else {
+            currentLocal = (parseInt(currentLocal) + 1).toString();
+        }
+        localStorage.setItem('milli_sim_count', currentLocal);
+        document.getElementById('visitor-count').innerText = currentLocal;
     }
 
     // GİZLİ TUŞ KOMBİNASYONU (Caps Lock + A + Z)
     const activeKeys = {};
     window.addEventListener('keydown', (e) => {
         let keyName = e.key.toLowerCase();
-        // CapsLock kontrolü
         if (e.getModifierState('CapsLock')) {
             activeKeys['capslock'] = true;
         }
         if (keyName === 'a' || keyName === 'z') {
             activeKeys[keyName] = true;
         }
-
-        // Üç tuşa da aynı anda basıldıysa paneli aç
         if (activeKeys['capslock'] && activeKeys['a'] && activeKeys['z']) {
             toggleAdminPanel(true);
         }
@@ -335,10 +320,8 @@
         const panel = document.getElementById('admin-panel');
         if (show) {
             panel.style.display = 'block';
-            // Paneli açınca güncel rakamı çek
-            fetch(getCountUrl)
-                .then(res => res.json())
-                .then(data => document.getElementById('visitor-count').innerText = data.value);
+            let currentLocal = localStorage.getItem('milli_sim_count') || "1";
+            document.getElementById('visitor-count').innerText = currentLocal;
         } else {
             panel.style.display = 'none';
         }
@@ -524,7 +507,7 @@
 
     buildInterface();
     updateBracket();
-    countUser(); // Site her açıldığında sayacı tetikler
+    countUser(); // Hatasız lokal sayacı başlatır
 </script>
 
 </body>
