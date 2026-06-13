@@ -11,6 +11,9 @@
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yerli ve Milli Dünya Kupası Yolu 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #8a1538;
@@ -24,26 +27,86 @@
         }
         * { box-sizing: border-box; }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
             background-color: #f1f5f9;
             margin: 0; padding: 0;
             color: var(--dark);
             overflow-x: hidden;
         }
 
-        /* GİRİŞ */
-        #welcome-screen {
+        /* ── GİRİŞ / MENÜ EKRANLARI ── */
+        .menu-screen {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
-            background: linear-gradient(135deg, var(--milli), #7a0006);
             display: flex; flex-direction: column;
             justify-content: center; align-items: center;
             color: white; z-index: 9999;
-            transition: opacity 0.5s ease;
-            text-align: center; padding: 20px;
+            text-align: center; padding: 24px;
+            transition: opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        #welcome-screen h1 { font-size: 48px; margin-bottom: 10px; text-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        #welcome-screen p { font-size: 20px; margin-bottom: 30px; opacity: 0.9; }
+        .menu-screen.hidden { opacity: 0; pointer-events: none; }
+        .menu-screen.gone { display: none; }
+
+        /* Ekran 1 – Turnuva Seç */
+        #screen-tournament { background: linear-gradient(145deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%); }
+        /* Ekran 2 – Oyun Seç */
+        #screen-game { background: linear-gradient(145deg, #7a0006 0%, var(--milli) 50%, #7a0006 100%); display: none; }
+        /* Hata Ekranı */
+        #screen-error { background: linear-gradient(145deg, #18181b 0%, #3f3f46 100%); display: none; }
+
+        .menu-logo { font-size: 56px; margin-bottom: 6px; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.06);} }
+        .menu-title { font-size: 36px; font-weight: 900; letter-spacing: 1px; margin-bottom: 6px; text-shadow: 0 4px 16px rgba(0,0,0,0.4); line-height: 1.2; }
+        .menu-sub { font-size: 15px; opacity: 0.75; margin-bottom: 40px; }
+
+        /* Kart butonlar */
+        .menu-cards { display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; max-width: 640px; }
+        .menu-card {
+            background: rgba(255,255,255,0.08);
+            border: 2px solid rgba(255,255,255,0.18);
+            border-radius: 20px; padding: 28px 24px;
+            width: 220px; cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(8px);
+            position: relative; overflow: hidden;
+        }
+        .menu-card::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+            border-radius: 18px;
+        }
+        .menu-card:hover { transform: translateY(-6px) scale(1.03); border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.15); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
+        .menu-card.disabled { opacity: 0.55; cursor: not-allowed; }
+        .menu-card.disabled:hover { transform: none; box-shadow: none; }
+        .card-icon { font-size: 44px; margin-bottom: 12px; display: block; }
+        .card-title { font-size: 17px; font-weight: 800; margin-bottom: 6px; }
+        .card-desc { font-size: 12px; opacity: 0.7; line-height: 1.5; }
+        .card-badge {
+            display: inline-block; font-size: 10px; font-weight: bold;
+            background: rgba(255,255,255,0.2); padding: 3px 10px;
+            border-radius: 20px; margin-top: 10px; letter-spacing: 0.5px;
+        }
+        .card-badge.coming { background: rgba(251,191,36,0.3); color: #fde68a; }
+        .card-badge.ready { background: rgba(34,197,94,0.3); color: #bbf7d0; }
+
+        /* Geri butonu */
+        .back-btn {
+            position: absolute; top: 22px; left: 22px;
+            background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);
+            color: white; padding: 8px 18px; border-radius: 30px;
+            font-size: 13px; cursor: pointer; transition: 0.2s;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .back-btn:hover { background: rgba(255,255,255,0.22); }
+
+        /* Hata ekranı */
+        .error-icon { font-size: 72px; margin-bottom: 16px; animation: shake 0.5s ease; }
+        @keyframes shake { 0%,100%{transform:rotate(0);} 25%{transform:rotate(-8deg);} 75%{transform:rotate(8deg);} }
+        .error-title { font-size: 28px; font-weight: 900; margin-bottom: 10px; }
+        .error-msg { font-size: 16px; opacity: 0.8; max-width: 360px; line-height: 1.6; margin-bottom: 30px; }
+        .error-back-btn { background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); color: white; padding: 12px 32px; border-radius: 50px; font-size: 15px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .error-back-btn:hover { background: rgba(255,255,255,0.25); }
+
         .milli-btn {
             background-color: white; color: var(--milli);
             font-size: 20px; font-weight: bold;
@@ -88,6 +151,10 @@
         .podium-team-name { font-weight: bold; flex-grow: 1; text-align: left; }
         .restart-btn { background: linear-gradient(135deg, #22c55e, #15803d); color: white; border: none; padding: 12px 30px; font-size: 18px; font-weight: bold; border-radius: 50px; margin-top: 25px; cursor: pointer; transition: 0.3s; }
         .restart-btn:hover { transform: scale(1.05); }
+        .screenshot-btn { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; border: none; padding: 12px 30px; font-size: 18px; font-weight: bold; border-radius: 50px; margin-top: 12px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 8px; justify-content: center; width: 100%; }
+        .screenshot-btn:hover { transform: scale(1.05); opacity: 0.95; }
+        .screenshot-btn.loading { opacity: 0.7; cursor: wait; }
+        .podium-btn-group { display: flex; flex-direction: column; gap: 0; margin-top: 10px; }
 
         /* ANA İÇERİK */
         #main-content { display: none; padding: 20px; }
@@ -269,20 +336,84 @@
     <button class="close-admin-btn" onclick="toggleAdminPanel(false)">Paneli Kapat</button>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <div id="podium-screen">
-    <div class="podium-card">
+    <div class="podium-card" id="podium-card-capture">
         <div class="podium-title">🏆 Senin Dünya Kupan 🏆</div>
         <div class="podium-row p-1"><span class="medal">🥇</span><img id="flag-1" class="podium-flag" src="" alt=""><span class="podium-team-name" id="podium-1">Takım</span><span>1.</span></div>
         <div class="podium-row p-2"><span class="medal">🥈</span><img id="flag-2" class="podium-flag" src="" alt=""><span class="podium-team-name" id="podium-2">Takım</span><span>2.</span></div>
         <div class="podium-row p-3"><span class="medal">🥉</span><img id="flag-3" class="podium-flag" src="" alt=""><span class="podium-team-name" id="podium-3">Takım</span><span>3.</span></div>
+        <div style="margin-top:14px;font-size:11px;color:#94a3b8;opacity:0.7;letter-spacing:1px;">2026 DÜNYA KUPASI SİMÜLATÖRÜ</div>
+    </div>
+    <div class="podium-btn-group">
+        <button class="screenshot-btn" id="ss-btn" onclick="downloadPodium()">📸 Podyumu Kaydet (PNG İndir)</button>
         <button class="restart-btn" onclick="resetTournament()">Yeni Simülasyon Başlat 🔄</button>
     </div>
 </div>
 
-<div id="welcome-screen">
-    <h1>🇹🇷 YERLİ VE MİLLİ DÜNYA KUPASI YOLU 🇹🇷</h1>
-    <p>2026 Dünya Kupası Simülatör Platformuna Hoş Geldiniz</p>
-    <button class="milli-btn" onclick="startApp()">SİMÜLASYONU BAŞLAT ⚽</button>
+<!-- ══════════════════════════════════════════
+     EKRAN 1 — TURNUVA SEÇ
+══════════════════════════════════════════ -->
+<div class="menu-screen" id="screen-tournament">
+    <div class="menu-logo">🏆</div>
+    <div class="menu-title">YERLİ VE MİLLİ<br>TURNUVA SİMÜLATÖRÜ</div>
+    <div class="menu-sub">Bir turnuva seçin</div>
+
+    <div class="menu-cards">
+        <!-- Dünya Kupası -->
+        <div class="menu-card" onclick="goToGameSelect()">
+            <span class="card-icon">🌍</span>
+            <div class="card-title">FIFA Dünya Kupası</div>
+            <div class="card-desc">2026 ABD-Kanada-Meksika<br>48 Takım · 104 Maç</div>
+            <span class="card-badge ready">✅ Oynanabilir</span>
+        </div>
+
+        <!-- Şampiyonlar Ligi -->
+        <div class="menu-card disabled" onclick="showError('champions')">
+            <span class="card-icon">⭐</span>
+            <div class="card-title">UEFA Şampiyonlar Ligi</div>
+            <div class="card-desc">Avrupa'nın en büyük<br>kulüp turnuvası</div>
+            <span class="card-badge coming">🚧 Yakında</span>
+        </div>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     EKRAN 2 — OYUN SEÇ (Dünya Kupası)
+══════════════════════════════════════════ -->
+<div class="menu-screen" id="screen-game">
+    <button class="back-btn" onclick="goBack('screen-tournament')">← Geri</button>
+    <div class="menu-logo">🌍</div>
+    <div class="menu-title">FIFA Dünya Kupası 2026</div>
+    <div class="menu-sub">Oyun modunu seçin</div>
+
+    <div class="menu-cards">
+        <!-- Simülasyon -->
+        <div class="menu-card" onclick="startSimulation()">
+            <span class="card-icon">⚽</span>
+            <div class="card-title">Dünya Kupası<br>Simülasyonu</div>
+            <div class="card-desc">Grup maçlarını oyna, eleme turlarını yönet, şampiyonu belirle!</div>
+            <span class="card-badge ready">✅ Oynanabilir</span>
+        </div>
+
+        <!-- Draft -->
+        <div class="menu-card disabled" onclick="showError('draft')">
+            <span class="card-icon">🎯</span>
+            <div class="card-title">Dünya Kupası<br>Draft</div>
+            <div class="card-desc">Takımını seç, kadronuzu oluştur, rekabete katıl!</div>
+            <span class="card-badge coming">🚧 Yakında</span>
+        </div>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     HATA / HAZIRLANMA EKRANI
+══════════════════════════════════════════ -->
+<div class="menu-screen" id="screen-error">
+    <div class="error-icon" id="error-icon">🚧</div>
+    <div class="error-title" id="error-title">Hazırlanıyor...</div>
+    <div class="error-msg" id="error-msg">Bu bölüm şu an yapım aşamasında. Yakında burada olacak!</div>
+    <button class="error-back-btn" id="error-back-btn" onclick="goBack('screen-tournament')">← Ana Menüye Dön</button>
 </div>
 
 <!-- FİKSTÜR MODALI (Hem grup hem KO için ortak) -->
@@ -851,6 +982,40 @@ function handleModalBackdrop(e) {
 // ───────────────────────────────────────────
 // PODYUM
 // ───────────────────────────────────────────
+function downloadPodium() {
+    const btn = document.getElementById('ss-btn');
+    btn.classList.add('loading');
+    btn.innerText = '⏳ Hazırlanıyor...';
+
+    const card = document.getElementById('podium-card-capture');
+    const images = card.querySelectorAll('img');
+    const loadPromises = Array.from(images).map(img => {
+        if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+        return new Promise(res => { img.onload = res; img.onerror = res; });
+    });
+
+    Promise.all(loadPromises).then(() => {
+        html2canvas(card, {
+            backgroundColor: '#0f172a',
+            scale: 2,
+            useCORS: true,
+            allowTaint: false,
+            logging: false
+        }).then(canvas => {
+            const link = document.createElement('a');
+            link.download = 'dunya-kupasi-podyum-2026.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            btn.classList.remove('loading');
+            btn.innerText = '📸 Podyumu Kaydet (PNG İndir)';
+        }).catch(() => {
+            btn.classList.remove('loading');
+            btn.innerText = '📸 Podyumu Kaydet (PNG İndir)';
+            alert('Görsel oluşturulurken hata oluştu. Tekrar deneyin.');
+        });
+    });
+}
+
 function showPodium() {
     document.getElementById('podium-1').innerText = finalWinner;
     document.getElementById('podium-2').innerText = finalLoser;
@@ -874,11 +1039,101 @@ function resetTournament() {
 // ───────────────────────────────────────────
 // DİĞER
 // ───────────────────────────────────────────
-function startApp() {
-    const ws = document.getElementById('welcome-screen');
-    ws.style.opacity = '0';
-    setTimeout(()=>{ ws.style.display='none'; document.getElementById('main-content').style.display='block'; }, 500);
+// ───────────────────────────────────────────
+// MENÜ NAVİGASYON
+// ───────────────────────────────────────────
+let errorReturnScreen = 'screen-tournament';
+
+function hideAllScreens() {
+    ['screen-tournament','screen-game','screen-error'].forEach(id => {
+        const el = document.getElementById(id);
+        el.style.display = 'none';
+        el.classList.remove('hidden');
+    });
 }
+
+function showScreen(id) {
+    // Mevcut görünür ekranı bul ve yavaşça kapat
+    const allIds = ['screen-tournament','screen-game','screen-error'];
+    const current = allIds.find(sid => {
+        const el = document.getElementById(sid);
+        return el.style.display !== 'none' && el.style.opacity !== '0';
+    });
+
+    const doShow = () => {
+        hideAllScreens();
+        const el = document.getElementById(id);
+        el.style.display = 'flex';
+        el.style.opacity = '0';
+        // İçeriği hafifçe aşağıdan yukarıya kaydır
+        el.style.transform = 'translateY(12px)';
+        el.style.transition = 'opacity 0.65s cubic-bezier(0.4,0,0.2,1), transform 0.65s cubic-bezier(0.4,0,0.2,1)';
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+        }));
+    };
+
+    if (current) {
+        const curEl = document.getElementById(current);
+        curEl.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+        curEl.style.opacity = '0';
+        curEl.style.transform = 'translateY(-8px)';
+        setTimeout(doShow, 360);
+    } else {
+        doShow();
+    }
+}
+
+function goToGameSelect() {
+    showScreen('screen-game');
+}
+
+function goBack(targetId) {
+    showScreen(targetId);
+}
+
+function showError(type) {
+    const icons   = { champions:'⭐', draft:'🎯' };
+    const titles  = { champions:'Şampiyonlar Ligi', draft:'Draft Modu' };
+    const msgs    = {
+        champions: 'UEFA Şampiyonlar Ligi modu şu an hazırlanıyor. Çok yakında yayına girecek, takipte kalın! 👀',
+        draft:     'Dünya Kupası Draft modu yapım aşamasında. Yakında burada olacak, sabırlı olun! 🔨'
+    };
+    const returnTo = { champions: 'screen-tournament', draft: 'screen-game' };
+
+    document.getElementById('error-icon').innerText  = icons[type]  || '🚧';
+    document.getElementById('error-title').innerText = titles[type] || 'Hazırlanıyor';
+    document.getElementById('error-msg').innerText   = msgs[type]   || 'Bu bölüm yapım aşamasında.';
+    errorReturnScreen = returnTo[type] || 'screen-tournament';
+    document.getElementById('error-back-btn').onclick = () => goBack(errorReturnScreen);
+
+    showScreen('screen-error');
+}
+
+function startSimulation() {
+    const screens = ['screen-tournament','screen-game','screen-error'];
+    const active = screens.find(id => {
+        const el = document.getElementById(id);
+        return el.style.display !== 'none';
+    });
+    if (active) {
+        const el = document.getElementById(active);
+        el.style.transition = 'opacity 0.6s ease';
+        el.style.opacity = '0';
+    }
+    setTimeout(() => {
+        screens.forEach(id => { document.getElementById(id).style.display = 'none'; });
+        const mc = document.getElementById('main-content');
+        mc.style.opacity = '0';
+        mc.style.display = 'block';
+        mc.style.transition = 'opacity 0.5s ease';
+        requestAnimationFrame(() => requestAnimationFrame(() => { mc.style.opacity = '1'; }));
+    }, 620);
+}
+
+// Eski startApp alias (resetTournament vs için)
+function startApp() { startSimulation(); }
 
 function countUser() {
     let c = localStorage.getItem('milli_sim_count');
